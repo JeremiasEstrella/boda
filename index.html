@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jose & Jacquelin - Nuestra Boda</title>
+    
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="estilos/style.css">
+    <link rel="stylesheet" href="estilos/movil.css">
+</head>
+<body>
+
+
+    <div id="loading-screen">
+        <div class="loader-percentage" id="loader-pct">0%</div>
+        <div class="loader-bar">
+            <div class="loader-progress" id="loader-prog"></div>
+        </div>
+    </div>
+
+
+    <div id="envelope-wrapper">
+        <div class="envelope" id="vintage-envelope">
+            <div class="envelope-body"></div>
+            <div class="letter" id="invitation-letter">
+                <div class="letter-content">
+                    <h2 style="color: var(--primary);">¡Bienvenidos!</h2>
+                    <p style="font-family: var(--font-body);">Estamos felices de compartir este día con ustedes. Desliza para descubrir todos los detalles de nuestra boda.</p>
+                    <div class="reveal-hint" style="margin-top: 20px; color: var(--primary); font-style: italic;">Desliza para entrar</div>
+                </div>
+            </div>
+            <div class="flap side-flap left-flap"></div>
+            <div class="flap side-flap right-flap"></div>
+            <div class="flap top-flap"></div>
+            <div class="envelope-content">
+                <h1 style="color: var(--primary);">J & J</h1>
+                <p style="font-size: 0.9rem; margin-top: -5px;">Jose & Jacquelin</p>
+                <p>Nuestra Boda</p>
+                <button class="open-btn" onclick="openInvitation()">Abrir Invitación</button>
+            </div>
+            <div class="wax-seal" onclick="openInvitation()">
+                <i class="fas fa-heart"></i>
+            </div>
+        </div>
+    </div>
+
+
+    <canvas id="sparkle-canvas"></canvas>
+
+
+    <main id="main-content" style="display: none;">
+        
+
+        <section id="inicio">
+            <div class="welcome-hero">
+                <img src="imagenes/cj4.jpeg" alt="Jose y Jacquelin">
+                
+
+                <div class="hero-top-details">
+                    <div class="couple-initials">J & J</div>
+                    <div class="couple-names">Jose & Jacquelin</div>
+                </div>
+
+                <h1 class="titulocountdown">Faltan</h1>
+                <div class="countdown" id="countdown">
+                    <div class="countdown-item"><span class="countdown-number" id="days">00</span><span>Días</span></div>
+                    <div class="countdown-item"><span class="countdown-number" id="hours">00</span><span>Hrs</span></div>
+                    <div class="countdown-item"><span class="countdown-number" id="minutes">00</span><span>Min</span></div>
+                    <div class="countdown-item"><span class="countdown-number" id="seconds">00</span><span>Seg</span></div>
+                </div>
+
+
+                <div class="wedding-date">15 de Octubre 2026</div>
+            </div>
+        </section>
+
+
+        <section id="mensaje" class="decorated-container">
+            
+            <img src="imagenes/flores-01.png" class="img-mensajeflores" alt="">
+            <img src="imagenes/floresesquinaderechaabajo.png" class="florizq" alt="">
+            <img src="imagenes/floresesquinaizquiedaabajo.png" class="florder" alt="">
+            <h2 class="section-title">Mensaje Especial</h2>
+            <p style="max-width: 600px; font-style: italic;">"El amor no consiste en mirarse el uno al otro, sino en mirar juntos en la misma dirección. Hoy comenzamos una nueva etapa y queremos compartirla con ustedes."</p>
+        </section>
+
+
+        <section id="familia">
+            <h1 class="parent-name" style="font-size: 3.5rem; text-align: center;">Mis Personas Favoritas</h1>
+            <p style="text-align: center; margin-bottom: 3rem;">- Gracias por hacer esto posible -</p>
+            
+            <div class="family-grid">
+
+                <div class="parent-frame-container">
+                    <div class="parent-circle-frame">
+                        <div class="particle-border"></div>
+                        <div class="parent-photos">
+                            <img src="imagenes/padresjaqueline.jpeg" alt="Padres de Jacquelin" style="width: 100%;">
+                        </div>
+                    </div>
+                    <h3 class="parent-name">Fernando y Rosalinda</h3>
+                    <span class="parent-tag">Padres de la Novia</span>
+                </div>
+
+
+                <div class="parent-frame-container">
+                    <div class="parent-circle-frame">
+                        <div class="particle-border"></div>
+                        <div class="parent-photos">
+                            <img src="imagenes/padresjose.jpeg" alt="Padres de Jose" style="width: 100%; object-position: top;">
+                        </div>
+                    </div>
+                    <h3 class="parent-name">Miguel y Maribel</h3>
+                    <span class="parent-tag">Padres del Novio</span>
+                </div>
+            </div>
+            <h1 class="parent-name" style="font-size: 3rem; text-align: center; margin-top: 4rem;">Mis Hermanos</h1>
+            
+            <div class="family-grid">
+
+                <div class="parent-frame-container">
+                    <div class="parent-circle-frame">
+                        <div class="particle-border"></div>
+                        <div class="parent-photos">
+                            <img src="imagenes/hermanosjaqueline.jpeg" alt="Hermanos de Jacquelin" style="width: 100%;">
+                        </div>
+                    </div>
+                    <h3 class="parent-name">Luis y Ana</h3>
+                    <span class="parent-tag">Hermanos de la Novia</span>
+                </div>
+
+
+                <div class="parent-frame-container">
+                    <div class="parent-circle-frame">
+                        <div class="particle-border"></div>
+                        <div class="parent-photos">
+                            <img src="imagenes/hermanosjose.jpeg" alt="Hermanos de Jose" style="width: 100%; object-position: top;">
+                        </div>
+                    </div>
+                    <h3 class="parent-name">Lizandro y Marisol</h3>
+                    <span class="parent-tag">Hermanos del Novio</span>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="padrinos" class="decorated-container">
+            <div class="flower-corner flower-bl flower-2" style="width: 100px;"></div>
+            <h2 class="section-title">Padrinos</h2>
+            <div class="godparents-container">
+                <div class="godparent-item">
+                    <div class="godparent-circle"><img src="imagenes/padrino.jpeg" alt="Padrino Romeo"></div>
+                    <h3 class="godparent-name">Francisco</h3>
+                </div>
+                <div class="godparent-item">
+                    <div class="godparent-circle"><img src="imagenes/madrina.jpeg" alt="Madrina Julieta"></div>
+                    <h3 class="godparent-name">Julieta</h3>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="lugar">
+            <h2 class="section-title">¿Dónde y Cuándo?</h2>
+            
+            <div class="location-container">
+
+                <div class="location-card decorated-container">
+        
+                    <img src="imagenes/flores-01.png" class="img-mensajeflores" alt="">
+                    <img src="imagenes/floresesquinaderechaabajo.png" class="florizq" alt="">
+                    <img src="imagenes/floresesquinaizquiedaabajo.png" class="florder" alt="">
+
+                    <div class="location-content">
+                        <h3 class="location-type">Ceremonia Religiosa</h3>
+                        <div class="location-image-wrapper">
+                            <img src="imagenes/izamaliglesia.jpg" alt="Convento de San Antonio de Padua">
+                        </div>
+                        <h4 class="location-name">Convento de San Antonio de Padua</h4>
+                        <p class="location-address">San Antonio de Padua, C. 31-A, Centro, 97540 Izamal, Yuc.</p>
+                        <p class="location-time">17:00 HRS</p>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Convento+de+San+Antonio+de+Padua+Yucatan" target="_blank" class="map-btn">
+                            <i class="fas fa-map-marker-alt"></i> Ver en el mapa
+                        </a>
+                    </div>
+                </div>
+
+
+                <div class="location-card decorated-container">
+        
+                    <img src="imagenes/flores-01.png" class="img-mensajeflores" alt="">
+                    <img src="imagenes/floresesquinaderechaabajo.png" class="florizq" alt="">
+                    <img src="imagenes/floresesquinaizquiedaabajo.png" class="florder" alt="">
+
+                    <div class="location-content">
+                        <h3 class="location-type">Recepción</h3>
+                        <div class="location-image-wrapper">
+                            <img src="imagenes/local.webp" alt="Villa Bonita">
+                        </div>
+                        <h4 class="location-name">Villa Bonita</h4>
+                        <p class="location-address">C. 19-A 306B, Guadalupe, 97540 Guadalupe, Yuc.</p>
+                        <p class="location-time">19:00 HRS</p>
+                        <a href="https://maps.app.goo.gl/WdbfBp1RyKEMr9kD8" target="_blank" class="map-btn">
+                            <i class="fas fa-map-marker-alt"></i> Ver en el mapa
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="vestimenta">
+            <img src="imagenes/flores-01.png" class="flower-vestimenta-tl" alt="">
+            <img src="imagenes/floresesquinaderechaabajo.png" class="flower-vestimenta-bl" alt="">
+            <img src="imagenes/floresesquinaizquiedaabajo.png" class="flower-vestimenta-br" alt="">
+            
+            <img src="imagenes/dresscode.png" class="img-dresscode" alt="Dress Code Icon">
+            
+            <h2 class="section-title">Código de Vestimenta</h2>
+            <p><strong>Formal</strong></p>
+            <p style="margin-top: 10px;">Colores no permitidos: Blanco, Beige y Terracota.</p>
+            <p>Agradecemos tu comprensión al evitar estos tonos.</p>
+        </section>
+
+
+        <section id="regalos">
+            <img src="imagenes/flores-01.png" class="flower-regalos-tl" alt="">
+            <img src="imagenes/floresesquinaderechaabajo.png" class="flower-regalos-bl" alt="">
+            <img src="imagenes/floresesquinaizquiedaabajo.png" class="flower-regalos-br" alt="">
+
+            <h2 class="section-title">Lluvia de Sobres</h2>
+            <p style="max-width: 600px; margin-bottom: 20px;">"Tu presencia es muy importante para nosotros, si deseas obsequiarnos algo será recibido con mucho amor."</p>
+            <div style="font-size: 3rem; color: var(--primary); margin-bottom: 30px;">✉</div>
+
+            <h3 style="font-family: var(--font-heading); color: var(--primary); margin-bottom: 20px; font-size: 1.8rem;">Mesa de Regalos</h3>
+            
+            <div class="gift-registry-container">
+                <a href="https://www.amazon.com.mx" target="_blank" class="registry-btn amazon-btn">
+                    <i class="fab fa-amazon"></i> Amazon
+                </a>
+                <a href="https://www.liverpool.com.mx" target="_blank" class="registry-btn liverpool-btn">
+                    <i class="fas fa-shopping-bag"></i> Liverpool
+                </a>
+                <a href="https://www.paypal.com" target="_blank" class="registry-btn paypal-btn">
+                    <i class="fab fa-paypal"></i> PayPal
+                </a>
+            </div>
+        </section>
+
+
+        <section id="clima">
+            <div class="weather-card">
+                <h2 class="weather-title">CLIMA</h2>
+                <p class="weather-desc">Toma precauciones y planifica tu outfit consultando las condiciones meteorológicas a continuación.</p>
+                
+                <div class="weather-divider"></div>
+                
+                <h3 class="weather-location">CHUBURNÁ PUERTO, YUC.</h3>
+                
+                <div id="weather-main-info">
+                    <div class="current-weather">
+                        <span class="temp">26°C</span>
+                        <div class="weather-status">
+                            <span class="status-icon">☀️</span>
+                            <span class="status-text">Despejado</span>
+                        </div>
+                    </div>
+                    
+                    <div class="weather-details">
+                        <div class="detail-item">
+                            <span>💨 5.2 m/s</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>💧 78%</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>🧭 1012 hPa</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="weather-divider"></div>
+
+                <div class="hourly-forecast">
+                    <button class="forecast-nav prev" onclick="scrollForecast(-1)">‹</button>
+                    <div class="forecast-container" id="forecast-items">
+                        <div class="forecast-item"><span class="time">00:00</span><span class="icon">🌙</span><span class="hour-temp">24°C</span></div>
+                        <div class="forecast-item"><span class="time">01:00</span><span class="icon">🌙</span><span class="hour-temp">23°C</span></div>
+                        <div class="forecast-item"><span class="time">02:00</span><span class="icon">🌙</span><span class="hour-temp">23°C</span></div>
+                        <div class="forecast-item"><span class="time">03:00</span><span class="icon">☁️</span><span class="hour-temp">22°C</span></div>
+                        <div class="forecast-item"><span class="time">04:00</span><span class="icon">☁️</span><span class="hour-temp">22°C</span></div>
+                        <div class="forecast-item"><span class="time">05:00</span><span class="icon">☁️</span><span class="hour-temp">22°C</span></div>
+                        <div class="forecast-item"><span class="time">06:00</span><span class="icon">⛅</span><span class="hour-temp">23°C</span></div>
+                        <div class="forecast-item"><span class="time">07:00</span><span class="icon">☀️</span><span class="hour-temp">25°C</span></div>
+                        <div class="forecast-item"><span class="time">08:00</span><span class="icon">☀️</span><span class="hour-temp">27°C</span></div>
+                        <div class="forecast-item"><span class="time">09:00</span><span class="icon">☀️</span><span class="hour-temp">29°C</span></div>
+                        <div class="forecast-item"><span class="time">10:00</span><span class="icon">☀️</span><span class="hour-temp">30°C</span></div>
+                    </div>
+                    <button class="forecast-nav next" onclick="scrollForecast(1)">›</button>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="itinerario">
+
+            <img src="imagenes/flores-01.png" class="img-mensajeflores" alt="">
+            <img src="imagenes/floresesquinaderechaabajo.png" class="florizq" alt="">
+            <img src="imagenes/floresesquinaizquiedaabajo.png" class="florder" alt="">
+            
+            <h2 class="section-title">Itinerario</h2>
+            <div class="itinerary-timeline">
+                <div class="timeline-line"></div>
+                
+                <div class="itinerary-item">
+                    <div class="itinerary-icon"><i class="fas fa-church"></i></div>
+                    <div class="itinerary-content">
+                        <span class="itinerary-time">17:00</span>
+                        <h3 class="itinerary-label">Misa</h3>
+                    </div>
+                </div>
+
+                <div class="itinerary-item">
+                    <div class="itinerary-icon"><i class="fas fa-glass-cheers"></i></div>
+                    <div class="itinerary-content">
+                        <span class="itinerary-time">19:00</span>
+                        <h3 class="itinerary-label">Recepción</h3>
+                    </div>
+                </div>
+
+                <div class="itinerary-item">
+                    <div class="itinerary-icon"><i class="fas fa-star"></i></div>
+                    <div class="itinerary-content">
+                        <span class="itinerary-time">20:00</span>
+                        <h3 class="itinerary-label">Presentación</h3>
+                    </div>
+                </div>
+
+                <div class="itinerary-item">
+                    <div class="itinerary-icon"><i class="fas fa-music"></i></div>
+                    <div class="itinerary-content">
+                        <span class="itinerary-time">21:00</span>
+                        <h3 class="itinerary-label">Baile</h3>
+                    </div>
+                </div>
+
+                <div class="itinerary-item">
+                    <div class="itinerary-icon"><i class="fas fa-utensils"></i></div>
+                    <div class="itinerary-content">
+                        <span class="itinerary-time">22:30</span>
+                        <h3 class="itinerary-label">Cena</h3>
+                    </div>
+                </div>
+
+                <div class="itinerary-item">
+                    <div class="itinerary-icon"><i class="fas fa-moon"></i></div>
+                    <div class="itinerary-content">
+                        <span class="itinerary-time">00:00</span>
+                        <h3 class="itinerary-label">After Party</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="deseos">
+            <img src="imagenes/flores-02.png" class="flower-deseos-l" alt="">
+            <img src="imagenes/flores-03.png" class="flower-deseos-r" alt="">
+            
+
+            <div class="swiper wishes-swiper">
+                <div class="swiper-wrapper">
+
+                    <div class="swiper-slide">
+                        <div class="social-card">
+                            <div class="social-header">
+                                <div class="social-avatar" style="background: #e1ad01;">M</div>
+                                <div class="social-info">
+                                    <h4 class="social-name">Mónica y Raúl</h4>
+                                    <span class="social-time">Hace 2 horas</span>
+                                </div>
+                            </div>
+                            <div class="social-body">
+                                <p>"¡Les deseo toda la felicidad del mundo en esta nueva etapa! Que su amor siga creciendo cada día más. 💍✨"</p>
+                                <div class="social-reply">
+                                    <div class="social-header reply-header">
+                                        <div class="social-avatar reply-avatar" style="background: var(--primary);">J</div>
+                                        <div class="social-info">
+                                            <h4 class="social-name">Jacquelin</h4>
+                                            <span class="social-time">Hace 1 hora</span>
+                                        </div>
+                                    </div>
+                                    <div class="reply-content">
+                                        <p>¡Muchas gracias amigos! Los esperamos con ansias. ❤️</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="social-footer">
+                                <div class="social-action"><i class="far fa-heart"></i> Me encanta</div>
+                                <div class="social-action"><i class="far fa-comment"></i> Comentar</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="swiper-slide">
+                        <div class="social-card">
+                            <div class="social-header">
+                                <div class="social-avatar" style="background: #925E33;">F</div>
+                                <div class="social-info">
+                                    <h4 class="social-name">Familia González</h4>
+                                    <span class="social-time">Hace 5 horas</span>
+                                </div>
+                            </div>
+                            <div class="social-body">
+                                <p>"Que la alegría de este día los acompañe siempre. ¡Felicidades por su unión! 🎉🥂"</p>
+                            </div>
+                            <div class="social-footer">
+                                <div class="social-action"><i class="far fa-heart"></i> Me encanta</div>
+                                <div class="social-action"><i class="far fa-comment"></i> Comentar</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="swiper-slide">
+                        <div class="social-card">
+                            <div class="social-header">
+                                <div class="social-avatar" style="background: #ec407a;">S</div>
+                                <div class="social-info">
+                                    <h4 class="social-name">Sofía M.</h4>
+                                    <span class="social-time">Ayer</span>
+                                </div>
+                            </div>
+                            <div class="social-body">
+                                <p>"Son una pareja increíble. Gracias por permitirnos compartir este momento tan especial con ustedes. ❤️"</p>
+                            </div>
+                            <div class="social-footer">
+                                <div class="social-action"><i class="far fa-heart"></i> Me encanta</div>
+                                <div class="social-action"><i class="far fa-comment"></i> Comentar</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="swiper-slide">
+                        <div class="social-card">
+                            <div class="social-header">
+                                <div class="social-avatar" style="background: #5c6bc0;">C</div>
+                                <div class="social-info">
+                                    <h4 class="social-name">Carlos y Andrea</h4>
+                                    <span class="social-time">Hace 1 día</span>
+                                </div>
+                            </div>
+                            <div class="social-body">
+                                <p>"¡Vivan los novios! Esperamos que este viaje juntos esté lleno de aventuras y mucho amor. 🌍✈️"</p>
+                                <div class="social-reply">
+                                    <div class="social-header reply-header">
+                                        <div class="social-avatar reply-avatar" style="background: var(--primary-light);">J</div>
+                                        <div class="social-info">
+                                            <h4 class="social-name">Jose</h4>
+                                            <span class="social-time">Hace 5 horas</span>
+                                        </div>
+                                    </div>
+                                    <div class="reply-content">
+                                        <p>¡Será la mejor aventura! Gracias por sus buenos deseos.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="social-footer">
+                                <div class="social-action"><i class="far fa-heart"></i> Me encanta</div>
+                                <div class="social-action"><i class="far fa-comment"></i> Comentar</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="swiper-slide">
+                        <div class="social-card">
+                            <div class="social-header">
+                                <div class="social-avatar" style="background: #26a69a;">R</div>
+                                <div class="social-info">
+                                    <h4 class="social-name">Roberto G.</h4>
+                                    <span class="social-time">Hace 1 día</span>
+                                </div>
+                            </div>
+                            <div class="social-body">
+                                <p>"Un honor verlos tan felices. ¡Salud por ustedes! 🥂"</p>
+                            </div>
+                            <div class="social-footer">
+                                <div class="social-action"><i class="far fa-heart"></i> Me encanta</div>
+                                <div class="social-action"><i class="far fa-comment"></i> Comentar</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="swiper-slide">
+                        <div class="social-card">
+                            <div class="social-header">
+                                <div class="social-avatar" style="background: #ab47bc;">L</div>
+                                <div class="social-info">
+                                    <h4 class="social-name">Lucía y Fer</h4>
+                                    <span class="social-time">Hace 2 días</span>
+                                </div>
+                            </div>
+                            <div class="social-body">
+                                <p>"Gracias por hacernos parte de este sueño. ¡Se ven radiantes! ✨👗🕴️"</p>
+                            </div>
+                            <div class="social-footer">
+                                <div class="social-action"><i class="far fa-heart"></i> Me encanta</div>
+                                <div class="social-action"><i class="far fa-comment"></i> Comentar</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="swiper-slide">
+                        <div class="social-card">
+                            <div class="social-header">
+                                <div class="social-avatar" style="background: #ef5350;">P</div>
+                                <div class="social-info">
+                                    <h4 class="social-name">Primos López</h4>
+                                    <span class="social-time">Hace 2 días</span>
+                                </div>
+                            </div>
+                            <div class="social-body">
+                                <p>"¡Fiesta! 🎉 Que nunca falten las risas ni el baile en su matrimonio. ¡Los queremos!"</p>
+                            </div>
+                            <div class="social-footer">
+                                <div class="social-action"><i class="far fa-heart"></i> Me encanta</div>
+                                <div class="social-action"><i class="far fa-comment"></i> Comentar</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="swiper-slide">
+                        <div class="social-card">
+                            <div class="social-header">
+                                <div class="social-avatar" style="background: #78909c;">A</div>
+                                <div class="social-info">
+                                    <h4 class="social-name">Abuela Tere</h4>
+                                    <span class="social-time">Hace 3 días</span>
+                                </div>
+                            </div>
+                            <div class="social-body">
+                                <p>"Dios los bendiga en este camino. Recuerden siempre cuidarse y respetarse. Con mucho amor. 🙏"</p>
+                            </div>
+                            <div class="social-footer">
+                                <div class="social-action"><i class="far fa-heart"></i> Me encanta</div>
+                                <div class="social-action"><i class="far fa-comment"></i> Comentar</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <a href="https://wa.me/1234567890?text=¡Felicidades!%20Les%20deseo..." target="_blank" style="margin-top: 40px; display: inline-block; padding: 12px 30px; border: 1px solid var(--primary); color: var(--primary); text-decoration: none; border-radius: 50px; font-weight: 600; transition: all 0.3s; z-index: 10;">
+                <i class="far fa-edit"></i> Publicar Deseo
+            </a>
+        </section>
+
+
+        <section id="confirmacion">
+
+            <img src="imagenes/flores-01.png" class="img-mensajeflores" alt="">
+            <img src="imagenes/floresesquinaderechaabajo.png" class="florizq" alt="">
+            <img src="imagenes/floresesquinaizquiedaabajo.png" class="florder" alt="">
+
+            <h2 class="section-title">Confirmación de Asistencia</h2>
+            <p>Por favor confirma tu asistencia antes del 1 de Mayo.</p>
+            <a href="https://wa.me/1234567890?text=Hola,%20confirmo%20mi%20asistencia%20a%20la%20boda" target="_blank" style="margin-top: 20px; display: inline-block; padding: 15px 30px; background: var(--primary); color: white; text-decoration: none; border-radius: 5px;">Confirmar por WhatsApp</a>
+        </section>
+
+
+        <section id="galeria">
+            <h2 class="section-title">Galería de Momentos</h2>
+            <div class="modern-gallery">
+                <div class="gallery-main">
+                    <img id="main-gallery-img" src="imagenes/cj1.jpeg" alt="Galería Principal">
+                </div>
+                <div class="gallery-sidebar" id="gallery-thumbs">
+                    <div class="thumb-card active" onclick="manualGalleryUpdate('imagenes/cj1.jpeg', 0)">
+                        <img src="imagenes/cj1.jpeg" alt="Thumb 1">
+                    </div>
+                    <div class="thumb-card" onclick="manualGalleryUpdate('imagenes/cj2.jpeg', 1)">
+                        <img src="imagenes/cj2.jpeg" alt="Thumb 2">
+                    </div>
+                    <div class="thumb-card" onclick="manualGalleryUpdate('imagenes/cj3.jpeg', 2)">
+                        <img src="imagenes/cj3.jpeg" alt="Thumb 3">
+                    </div>
+                    <div class="thumb-card" onclick="manualGalleryUpdate('imagenes/cj4.jpeg', 3)">
+                        <img src="imagenes/cj4.jpeg" alt="Thumb 4">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="qr-upload">
+
+            <img src="imagenes/flores-01.png" class="img-mensajeflores" alt="">
+            <img src="imagenes/floresesquinaderechaabajo.png" class="florizq" alt="">
+            <img src="imagenes/floresesquinaizquiedaabajo.png" class="florder" alt="">
+            
+            <h2 class="section-title">¡Ayúdanos a capturar cada momento!</h2>
+            <p style="margin-bottom: 2rem;">Escanea el código para compartir tus fotos con nosotros</p>
+            <div class="qr-container">
+                <div class="qr-frame">
+                    <div class="qr-placeholder">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                </div>
+                <p class="qr-instruction">Escanear para subir fotos</p>
+            </div>
+        </section>
+
+    </main>
+
+
+    <div id="spotify-player" class="spotify-player">
+        <div class="spotify-track-info">
+            <div class="spotify-cover">
+                <i class="fas fa-music"></i>
+            </div>
+            <div class="spotify-text">
+                <span class="spotify-title">A Sky Full Of Stars</span>
+                <span class="spotify-artist">Daniele Vitale (Sax Cover)</span>
+            </div>
+        </div>
+        
+        <div class="spotify-controls">
+            <button id="music-toggle" class="spotify-play-btn">
+                <i class="fas fa-play"></i>
+            </button>
+        </div>
+        <audio id="bg-music" loop>
+            <source src="A Sky Full Of Stars - Coldplay  Cover Saxophone by Daniele Vitale.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>
