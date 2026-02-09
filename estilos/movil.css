@@ -1,0 +1,530 @@
+/* movil.css - Specific styles for screens 550px and below */
+
+@media screen and (max-width: 550px) {
+    :root {
+        --mobile-padding: 20px 10px;
+    }
+
+    /* Main body adjustments */
+    body {
+        font-size: 14px;
+    }
+
+    section {
+        min-height: auto;
+        padding: var(--mobile-padding);
+        margin-bottom: 20px;
+    }
+
+    /* Hero & Countdown adjustments */
+    .titulocountdown {
+        font-size: 1.5rem;
+        position: absolute;
+        bottom: 90px;
+        width: 100%;
+        text-align: center;
+        color: var(--secondary);
+        text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        margin: 0;
+        z-index: 10;
+        left: 0;
+    }
+
+    .countdown {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+        justify-content: center;
+        width: 90%;
+        left: 5%;
+        margin: 0;
+        position: absolute;
+        bottom: 40px;
+        z-index: 10;
+    }
+
+    .countdown-item {
+        min-width: unset;
+        width: auto;
+        padding: 5px 2px;
+        flex: 1;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    .countdown-number {
+        font-size: 1rem;
+        line-height: 1.2;
+    }
+
+    .countdown-item span:last-child {
+        font-size: 0.6rem;
+    }
+
+    /* Vintage Envelope Mobile */
+    .envelope {
+        height: 250px;
+    }
+
+    .top-flap {
+        border-width: 125px calc(50vw - 10px) 0 calc(50vw - 10px);
+    }
+    
+    @media screen and (min-width: 450px) {
+        .top-flap {
+            border-width: 150px 225px 0 225px;
+        }
+    }
+
+    .left-flap {
+        border-width: 125px 0 125px calc(50vw - 10px);
+    }
+
+    .right-flap {
+        border-width: 125px calc(50vw - 10px) 125px 0;
+    }
+
+    .envelope-content h1 {
+        font-size: 1.5rem;
+    }
+
+    .open-btn {
+        padding: 8px 15px;
+        font-size: 0.8rem;
+    }
+
+    /* Family and Parents */
+    .family-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .family-card {
+        padding: 15px;
+    }
+
+    /* Godparents smaller */
+    .godparents-container {
+        gap: 10px;
+    }
+
+    .godparent-circle {
+        width: 90px;
+        height: 90px;
+        font-size: 0.75rem;
+    }
+
+    /* Itinerary timeline */
+    .itinerary-item {
+        padding-left: 15px;
+        font-size: 0.9rem;
+    }
+
+    /* Map height */
+    .map-container {
+        height: 250px;
+    }
+
+    /* Music button position */
+    #music-control {
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .music-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    /* Parent Section Mobile */
+    .parent-circle-frame {
+        width: 220px;
+        height: 220px;
+    }
+    
+    .parent-name {
+        font-size: 1.8rem !important;
+    }
+    
+    .parent-tag {
+        font-size: 0.8rem;
+    }
+
+    /* Swiper Gallery */
+    .swiper {
+        height: 350px !important;
+    }
+
+    /* Floral Adjustments for Mobile */
+    .flower-corner {
+        width: 80px !important; /* Force smaller size on mobile */
+        opacity: 0.5;
+    }
+    
+    .family-card .flower-corner {
+        width: 50px !important;
+    }
+
+    /* Weather Card Mobile */
+    .weather-card {
+        padding: 30px 20px;
+        border-radius: 20px;
+    }
+    
+    .weather-title {
+        font-size: 2.2rem;
+        letter-spacing: 2px;
+    }
+    
+    .weather-desc {
+        font-size: 1.2rem;
+    }
+    
+    .weather-location {
+        font-size: 1.6rem;
+    }
+    
+    .current-weather .temp {
+        font-size: 3.5rem;
+    }
+    
+    .weather-details {
+        gap: 15px;
+        font-size: 0.9rem;
+    }
+    
+    .forecast-item .hour-temp {
+        font-size: 0.9rem;
+    }
+
+    /* Itinerary Timeline Mobile */
+    .timeline-line {
+        left: 30px;
+    }
+    
+    .itinerary-item, .itinerary-item:nth-child(even) {
+        flex-direction: row;
+        justify-content: flex-start;
+        padding-left: 0;
+    }
+    
+    .itinerary-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+        margin-right: 20px;
+        flex-shrink: 0;
+    }
+    
+    .itinerary-content, .itinerary-item:nth-child(even) .itinerary-content {
+        width: calc(100% - 70px);
+        text-align: left;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 15px;
+        box-shadow: none; /* Simplify for mobile */
+    }
+    
+    .itinerary-label {
+        font-size: 1.4rem;
+    }
+
+    /* Hero Personalization Mobile */
+    .hero-top-details {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+
+    .couple-initials {
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+    }
+
+    .couple-names {
+        font-size: 0.6rem;
+        letter-spacing: 1px;
+    }
+
+    .wedding-date {
+        position: absolute;
+        bottom: 10px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        padding: 5px 0;
+        font-size: 0.9rem;
+        border-top: 1px solid rgba(255,255,255,0.8);
+        color: white;
+        text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+        z-index: 10;
+    }
+
+    /* Redundant countdown overrides removed */
+
+    /* QR Section Mobile */
+    #qr-upload {
+        padding: 40px 15px;
+        margin: 20px 10px;
+        border-radius: 20px;
+    }
+    
+    .qr-placeholder {
+        width: 150px;
+        height: 150px;
+        font-size: 6rem;
+    }
+    
+    .qr-instruction {
+        font-size: 1.2rem;
+    }
+}
+@media screen and (max-width: 992px) {
+    .invitation-card {
+        max-width: 450px;
+        height: 650px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    :root {
+        --section-padding: 40px 15px;
+    }
+
+    section {
+        min-height: auto;
+        padding: var(--section-padding);
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .titulocountdown {
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .welcome-hero {
+        position: relative; 
+        margin-bottom: 2rem;
+        z-index: 1;
+    }
+
+    .countdown {
+        margin-bottom: 0;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 90%;
+    }
+
+    .countdown-item {
+        min-width: 70px;
+        padding: 10px;
+    }
+
+    .countdown-number {
+        font-size: 1.5rem;
+    }
+
+    .invitation-card {
+        width: 95%;
+        height: 600px;
+    }
+
+    .card-front {
+        padding: 20px;
+    }
+
+    .card-front h1 {
+        font-size: 2rem;
+    }
+
+    .family-grid {
+        gap: 20px;
+    }
+
+    .godparent-circle {
+        width: 130px;
+        height: 130px;
+    }
+
+    .map-container {
+        height: 350px;
+    }
+
+/* Decorative Flowers */
+.decorated-container {
+    position: relative;
+    /* overflow: hidden; Removed to let flowers show */
+}
+
+.flower-corner {
+   
+    width: 50px;
+   
+}
+.florizq{
+    width: 50px;
+     bottom: -10px;
+    left: -10px;
+}
+
+.florder{
+    width: 50px;
+   bottom: -10px;
+    right: -10px;
+    
+}
+
+
+
+.img-mensajeflores{
+    width: 50px;
+    height: auto;
+    position: absolute;
+    top: -10px;
+    left: -20px;
+    z-index: 2;
+    transform: rotate(-15deg);
+}
+#mensaje{   
+ width: 90%;
+}
+
+#vestimenta, #regalos, #itinerario, #confirmacion, #qr-upload {
+    width: 90%;
+}
+
+.flower-vestimenta-tl, .flower-vestimenta-bl, .flower-vestimenta-br,
+.flower-regalos-tl, .flower-regalos-bl, .flower-regalos-br {
+    width: 50px;
+}
+
+.flower-vestimenta-tl, .flower-regalos-tl {
+    top: -10px;
+    left: -20px;
+}
+
+.flower-vestimenta-bl, .flower-regalos-bl {
+    bottom: -10px;
+    left: -10px;
+}
+
+.flower-vestimenta-br, .flower-regalos-br {
+    bottom: -10px;
+    right: -10px;
+}
+
+.gift-registry-container {
+    width: 100%;
+    justify-content: center;
+}
+
+.flower-deseos-l, .flower-deseos-r {
+    width: 150px;
+    opacity: 0.2;
+}
+
+/* Adjust Spotify Player for Mobile */
+.spotify-player {
+    bottom: 10px;
+    right: 10px;
+    max-width: 250px;
+    padding: 8px 12px;
+}
+
+.spotify-title {
+    font-size: 0.8rem;
+}
+
+.spotify-artist {
+    font-size: 0.6rem;
+}
+
+    
+}
+
+@media screen and (max-width: 480px) {
+    .titulocountdown {
+        font-size: 1.8rem;
+    }
+
+    .countdown {
+        gap: 10px;
+    }
+
+    .countdown-item {
+        min-width: 65px;
+        padding: 8px;
+    }
+
+    .countdown-number {
+        font-size: 1.2rem;
+    }
+
+    .invitation-card {
+        height: 550px;
+    }
+    
+    .godparent-circle {
+        width: 110px;
+        height: 110px;
+        font-size: 0.8rem;
+    }
+}
+
+
+
+@media screen and (max-width: 370px) {
+    
+    .countdown {
+        bottom: 30px;
+        width: 90%; 
+        gap: 2px;
+        margin-top: 0;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        margin: auto;
+        flex-direction: row;
+    }
+
+    .countdown-item {
+        min-width: 50px; /* Smaller width for mobile */
+        padding: 3px;
+        flex: 1; /* Allow equal growth */
+    }
+
+    .countdown-number {
+        font-size: 0.7rem; /* Smaller font for numbers to fit */
+    }
+
+    .countdown-item span:last-child {
+        font-size: 0.5rem;
+        display: none; 
+    }
+
+    .titulocountdown {
+        font-size: 1rem;
+        bottom: 40px;
+    }
+
+    .wedding-date {
+        font-size: 0.8rem;
+        bottom: 1px;
+    }
+
+    .hero-top-details {
+        transform: scale(0.8);
+        transform-origin: top left;
+        top: 5px;
+        left: 5px;
+    }
+
+
+
+
+
+
+}   

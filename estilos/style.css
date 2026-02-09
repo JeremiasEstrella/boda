@@ -1,0 +1,1699 @@
+:root {
+    --primary: #925E33; /* PANTONE 18-1148 TGP Russet */
+    --primary-light: #b07d56;
+    --secondary: #FFFFFF;
+    --bg-color: #f8f5f2;
+    --text-main: #333333;
+    --text-muted: #666666;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Montserrat', sans-serif;
+    --transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-heading);
+}
+
+/* Scroll Smoothing */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Loading Screen */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--secondary);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.loader-percentage {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.loader-bar {
+    width: 200px;
+    height: 2px;
+    background: #eee;
+    overflow: hidden;
+}
+
+.loader-progress {
+    width: 0%;
+    height: 100%;
+    background: var(--primary);
+    transition: width 0.3s ease;
+}
+
+/* Vintage Envelope Styles */
+#envelope-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9000;
+    perspective: 1000px;
+}
+
+.envelope {
+    position: relative;
+    width: 90%;
+    max-width: 450px;
+    height: 300px;
+    background: #e6dfd6;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: transform 0.8s ease;
+}
+
+.envelope-body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #e6dfd6;
+    z-index: 2; /* Main body back */
+    overflow: hidden;
+}
+
+.envelope-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 30px;
+}
+
+.envelope-content h1 {
+    color: var(--primary);
+    font-size: 2.22rem;
+    margin-bottom: 10px;
+}
+
+.envelope-content p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    letter-spacing: 2px;
+}
+
+.flap {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    z-index: 6;
+    transition: transform 0.8s ease, z-index 0.3s;
+}
+
+.top-flap {
+    top: 0;
+    left: 0;
+    border-width: 150px 225px 0 225px;
+    border-color: #d8cebf transparent transparent transparent;
+    transform-origin: top;
+    z-index: 15; /* Top flap must be above the wax seal initially? No, let's put seal on top */
+}
+
+.side-flap {
+    z-index: 12;
+}
+
+.left-flap {
+    top: 0;
+    left: 0;
+    border-width: 150px 0 150px 225px;
+    border-color: transparent transparent transparent #e6dfd6;
+}
+
+.right-flap {
+    top: 0;
+    right: 0;
+    border-width: 150px 225px 150px 0;
+    border-color: transparent #e6dfd6 transparent transparent;
+}
+
+.wax-seal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    background: var(--primary);
+    border-radius: 50%;
+    z-index: 20; /* Seal should be on top of everything */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(146, 94, 51, 0.4);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 3px solid rgba(255,255,255,0.2);
+}
+
+.wax-seal:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.letter {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    background: white;
+    z-index: 1;
+    padding: 30px;
+    transition: transform 1s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.letter-content {
+    text-align: center;
+    border: 1px solid rgba(146, 94, 51, 0.1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.open-btn {
+    margin-top: 20px;
+    padding: 10px 25px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    transition: opacity 0.3s;
+}
+
+/* Animations for open and transitions */
+#envelope-wrapper.open .top-flap {
+    transform: rotateX(160deg);
+    z-index: 0;
+}
+
+#envelope-wrapper.open .wax-seal {
+    opacity: 0;
+    transform: translate(-50%, -150%) scale(0.5);
+    pointer-events: none;
+}
+
+#envelope-wrapper.open .letter {
+    transform: translateY(-200px); /* Slide out more */
+    z-index: 14; /* Between side flaps (12) and top flap (15) works, but let's go above all */
+    opacity: 1;
+}
+
+#envelope-wrapper.open .envelope-content {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Sparkle Canvas */
+#sparkle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Decorative Flowers */
+.decorated-container {
+    position: relative;
+    /* overflow: hidden; Removed to let flowers show */
+}
+
+.flower-corner {
+    position: absolute;
+    width: 150px;
+    height: auto;
+    pointer-events: none;
+    z-index: 10; /* Increased z-index */
+    opacity: 1; /* Full opacity */
+}
+.florizq{
+    width: 150px;
+    height: auto;
+    position: absolute;
+    bottom: -40px;
+    left: -40px;
+    z-index: 2;/* Full opacity */
+}
+
+.florder{
+    width: 150px;
+    height: auto;
+    position: absolute;
+    bottom: -15px;
+    right: -30px;
+    z-index: 2;/* Full opacity */
+    rotate: calc(50deg);
+}
+#mensaje{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+ width: 43%;
+ border-radius: 5%;
+ background-color: var(--bg-color);
+ margin:auto;
+ box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+ z-index: 1;
+    
+}
+
+.img-mensajeflores{
+    width: 150px;
+    height: auto;
+    position: absolute;
+    top: -30px;
+    left: -30px;
+    z-index: 2;
+    transform: rotate(-15deg);
+}
+.flower-tl { top: -20px; left: -20px; transform: rotate(0deg); }
+.flower-tr { top: -20px; right: -20px; transform: rotate(90deg); }
+.flower-bl { bottom: -20px; left: -20px; transform: none; width: 220px; }
+.flower-br { bottom: -20px; right: -20px; transform: none; width: 220px; }
+
+.flower-1 { display: none; }
+.flower-1 { display: none; }
+
+/* Modern Gallery Redesign */
+.modern-gallery {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    height: 600px;
+    align-items: center; /* Centering thumbnails with main image */
+}
+
+.gallery-main {
+    flex: 3;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+    
+}
+
+.gallery-main img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: opacity 0.5s ease;  
+}
+
+.gallery-sidebar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+    padding-right: 10px;  
+}
+
+/* Scrollbar for sidebar */
+.gallery-sidebar::-webkit-scrollbar {
+    width: 6px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+}
+.gallery-sidebar::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 20px;
+}
+
+.thumb-card {
+    cursor: pointer;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 105px; /* Further reduced height for better fit */
+    width: calc(100% - 10px); /* Leave room for scaling */
+    margin: 5px auto;
+    flex-shrink: 0;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    
+}
+
+.thumb-card:hover {
+    transform: scale(1.02); /* More subtle scale to prevent clipping */
+}
+
+.thumb-card.active {
+    border-color: var(--primary);
+    transform: scale(1.02);
+}
+
+.thumb-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.thumb-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Mobile Gallery Adjustments */
+@media screen and (max-width: 768px) {
+    .modern-gallery {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .gallery-main {
+        height: 400px;
+    }
+    
+    .gallery-sidebar {
+        flex-direction: row;
+        overflow-x: auto;
+        overflow-y: hidden;
+        height: 100px;
+        padding-right: 0;
+        padding-bottom: 10px;
+    }
+    
+    .thumb-card {
+        width: 100px;
+        height: 80px;
+    }
+}
+.weather-card {
+    background: var(--primary);
+    padding: 60px 40px;
+    border-radius: 40px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+    color: white; /* Contrast text */
+    text-align: center;
+}
+
+.weather-card .weather-title,
+.weather-card .weather-location,
+.weather-card .temp,
+.weather-card .status-text,
+.weather-card .detail-item span,
+.weather-card .time,
+.weather-card .hour-temp {
+    color: white !important;
+}
+
+.weather-card .weather-desc {
+    color: rgba(255,255,255,0.9);
+}
+
+.weather-card .weather-divider {
+    background: rgba(255,255,255,0.3);
+}
+
+.weather-card .forecast-nav {
+    background: rgba(255,255,255,0.2);
+    color: white;
+}
+
+.weather-title {
+    font-size: 3.5rem;
+    font-family: var(--font-heading);
+    color: #4a4a4a;
+    letter-spacing: 5px;
+    margin-bottom: 20px;
+}
+
+.weather-desc {
+    font-family: 'Great Vibes', cursive; /* Using a cursive font for the elegant look */
+    font-size: 1.5rem;
+    color: #5a5a5a;
+    line-height: 1.4;
+    margin-bottom: 30px;
+}
+
+.weather-divider {
+    width: 80%;
+    height: 1px;
+    background: #a8a8a8;
+    margin: 30px auto;
+}
+
+.weather-location {
+    font-size: 2.2rem;
+    font-family: var(--font-heading);
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+#weather-main-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.current-weather {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.current-weather .temp {
+    font-size: 5rem;
+    font-weight: 300;
+}
+
+.weather-status {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.status-icon {
+    font-size: 2.5rem;
+}
+
+.status-text {
+    font-size: 1.5rem;
+    color: #4a4a4a;
+}
+
+.weather-details {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    width: 100%;
+    margin-top: 20px;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.hourly-forecast {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+.forecast-container {
+    display: flex;
+    gap: 25px;
+    overflow-x: auto;
+    width: 100%;
+    justify-content: flex-start;
+    scroll-behavior: smooth;
+    padding: 10px 0;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.forecast-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+}
+
+.forecast-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0; /* Important: prevents items from squishing */
+    min-width: 60px;
+}
+
+.forecast-item .time {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.forecast-item .icon {
+    font-size: 1.5rem;
+}
+
+.forecast-item .hour-temp {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.forecast-nav {
+    background: #ccc;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+    transition: 0.3s;
+}
+
+.forecast-nav:hover {
+    opacity: 1;
+}
+
+/* General Section Styling */
+section {
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+}
+/* Removed section.visible to use GSAP exclusively for scroll reveals */
+
+.inicio {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.section-title {
+    font-size: 2.5rem;
+    color: var(--primary);
+    position: relative;
+}
+
+/* Welcome Section */
+.welcome-hero {
+    margin-top: 100px;
+    border-radius: 5%;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end; /* Move content to bottom */
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 2rem;
+    z-index: 100;
+}
+
+.welcome-hero img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+/* Hero Personalization */
+.hero-top-details {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-align: center;
+    color: var(--primary);
+    z-index: 10;
+    text-shadow: 0 1px 3px rgba(255,255,255,0.8); /* White shadow for contrast on image */
+}
+
+.couple-initials {
+    font-family: var(--font-heading);
+    font-size: 3rem; /* Smaller as requested */
+    letter-spacing: 5px;
+    margin-bottom: 0px;
+    line-height: 1;
+}
+
+.couple-names {
+    margin-top: 10px;
+    font-family: var(--font-body);
+    font-size: 1rem; /* Smaller as requested */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0.9;
+}
+
+.titulocountdown {
+    position: absolute;
+    bottom: 150px; /* Moved up to make room */
+    font-size: 3rem;
+    color: var(--secondary);
+    text-shadow: #333333 2px 2px 5px;
+    margin: 0;
+}
+
+.countdown {
+    position: absolute;
+    bottom: 65px; /* Moved up to make room */
+    display: flex;
+    flex-direction: row;
+    z-index: 10;
+    gap: 15px;
+}
+
+.wedding-date {
+    position: absolute;
+    bottom: 10px; /* Positioned below countdown, inside image */
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    color: white;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    z-index: 10;
+    border-top: 1px solid rgba(255,255,255,1);
+    padding-top: 5px;
+}
+
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    background: var(--secondary);
+    box-shadow: 0 5px 15px rgb(0, 0, 0);
+    padding: 15px;
+    min-width: 80px;
+    border-radius: 5px;
+}
+
+.countdown-number {
+    font-size: 2rem;
+    color: var(--primary);
+    font-weight: bold;
+}
+
+/* Family Section */
+/* Parent Sections - Circular Photos & Animation */
+.parent-frame-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.parent-circle-frame {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    padding: 10px;
+    background: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible; /* To allow particles to "leak" out */
+}
+
+.parent-photos {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    position: relative;
+}
+
+.parent-photos img {
+    width: 60%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* Particle/Glow Animation */
+.particle-border {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    background: linear-gradient(45deg, transparent, var(--primary), transparent);
+    animation: rotateBorder 4s linear infinite;
+    pointer-events: none;
+}
+
+.particle-border::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--primary) 10%, transparent 70%);
+    opacity: 0.3;
+    animation: pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes rotateBorder {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulseGlow {
+    0%, 100% { transform: scale(1); opacity: 0.2; }
+    50% { transform: scale(1.05); opacity: 0.4; }
+}
+
+.parent-name {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-top: 1.5rem;
+    margin-bottom: 0.2rem;
+}
+
+.parent-tag {
+    font-size: 0.9rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Family Grid Update to support the new layout */
+.family-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 2rem;
+}
+
+.family-card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* Godparents (Circular) */
+.godparents-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 2rem;
+}
+
+.godparent-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* Space between circle and name */
+}
+
+.godparent-name {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem; /* Large and elegant script */
+    color: var(--primary);
+    margin: 0;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.godparent-circle {
+    width: 180px;
+    height: 180px; /* Slightly larger to stand out */
+    border-radius: 50%;
+    position: relative;
+    padding: 6px; /* White gap */
+    background: white;
+    /* Unique Border Style: Double solid with pulse */
+    border: 1px solid var(--primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+    animation: godparentPulse 2.5s infinite;
+}
+
+.godparent-circle img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+.godparent-circle:hover {
+    transform: scale(1.05);
+    animation: none; /* Pause pulse on hover */
+    box-shadow: 0 0 20px var(--primary);
+}
+
+/* Unique Animation for Godparents: Expanding Ripple/Pulse */
+@keyframes godparentPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(146, 94, 51, 0.7), 0 0 0 0 rgba(146, 94, 51, 0.4);
+    }
+    50% {
+         box-shadow: 0 0 0 10px rgba(146, 94, 51, 0), 0 0 0 6px rgba(146, 94, 51, 0.3);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(146, 94, 51, 0), 0 0 0 15px rgba(146, 94, 51, 0);
+    }
+}
+
+/* Itinerary Section - Modern Timeline */
+.itinerary-timeline {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px 0;
+}
+
+.timeline-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: var(--primary);
+    transform: translateX(-50%);
+    opacity: 0.5; /* Increased opacity */
+}
+
+.itinerary-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 40px;
+    position: relative;
+    opacity: 1; /* GSAP will handle initial state if we from() it, but let's be explicit */
+}
+
+.itinerary-item:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.itinerary-icon {
+    width: 60px;
+    height: 60px;
+    background: white;
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--primary);
+    z-index: 2;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.itinerary-item:hover .itinerary-icon {
+    background: var(--primary);
+    color: white;
+    transform: scale(1.1);
+}
+
+.itinerary-content {
+    width: 40%;
+    text-align: right;
+    margin-right: 30px;
+}
+
+.itinerary-item:nth-child(even) .itinerary-content {
+    text-align: left;
+    margin-right: 0;
+    margin-left: 30px;
+}
+
+.itinerary-time {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 5px;
+}
+
+.itinerary-label {
+    font-size: 1.2rem;
+    font-family: var(--font-heading);
+    color: #444;
+    margin: 0;
+}
+
+/* Map */
+.map-container {
+    width: 100%;
+    height: 400px;
+    max-width: 1000px;
+    border: 5px solid var(--secondary);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Music Control */
+#music-control {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.music-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* ==========================================================================
+   CSS Animations & Transitions
+   ========================================================================== */
+
+/* Fade In Entry */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Float Animation for Icons */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Pulse for Interactive Elements */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.animate-fade-in {
+    animation: fadeIn 1s ease forwards;
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* QR Photo Upload Styles */
+/* QR Photo Upload Styles */
+#qr-upload {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 43%;
+    border-radius: 5%;
+    background-color: var(--bg-color);
+    margin: 3rem auto;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    z-index: 1;
+    padding: 60px 40px;
+    align-items: center;
+    justify-content: center;
+}
+
+.qr-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.qr-frame {
+    padding: 20px;
+    background: white;
+    border: 3px solid var(--primary);
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.qr-placeholder {
+    width: 200px;
+    height: 200px;
+    background: #fdfdfd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8rem;
+    color: var(--primary);
+    border: 1px dashed var(--primary);
+}
+
+.qr-instruction {
+    font-family: var(--font-heading);
+    color: var(--primary);
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Location Cards Styles */
+.location-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3rem;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 2rem;
+    padding: 0 1rem;
+}
+
+.location-card {
+    background: white; /* Clean white background */
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(146, 94, 51, 0.15); /* Soft primary shadow */
+    padding: 4rem 2rem; /* Extra padding for flowers */
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease;
+}
+
+.location-card:hover {
+    transform: translateY(-10px);
+}
+
+.location-content {
+    position: relative;
+    z-index: 5; /* Above flowers */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.location-type {
+    font-family: var(--font-heading);
+    color: var(--primary);
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--primary-light);
+    padding-bottom: 10px;
+}
+
+.location-image-wrapper {
+    width: 100%;
+    height: 300px;
+    border-radius: 15px;
+    overflow: hidden;
+    margin: 1rem 0 2rem 0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    border: 1px solid rgba(146, 94, 51, 0.2);
+}
+
+.location-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.location-card:hover .location-image-wrapper img {
+    transform: scale(1.1);
+}
+
+.location-name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+    font-family: var(--font-heading);
+}
+
+.location-address {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    max-width: 80%;
+    line-height: 1.5;
+}
+
+.location-time {
+    font-size: 1.2rem;
+    color: var(--primary);
+    font-weight: bold;
+    margin-bottom: 2rem;
+    letter-spacing: 2px;
+}
+
+.map-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 40px;
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 50px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.map-btn:hover {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 10px 20px rgba(146, 94, 51, 0.3);
+    transform: scale(1.05);
+}
+
+.map-btn i {
+    transition: transform 0.3s ease;
+}
+
+.map-btn:hover i {
+    transform: translateY(-3px);
+}
+
+/* Vestimenta Section */
+#vestimenta {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 43%;
+    border-radius: 5%;
+    background-color: var(--bg-color);
+    margin: 5rem auto 3rem auto; /* Increased top margin */
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    z-index: 1;
+    padding: 40px;
+    align-items: center;
+    justify-content: center;
+}
+
+.img-dresscode {
+    width: 100px;
+    height: auto;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+/* Dress Code Flowers (Independent Logic) */
+.flower-vestimenta-tl {
+    width: 150px;
+    height: auto;
+    position: absolute;
+    top: -30px;
+    left: -30px;
+    z-index: 2;
+    transform: rotate(-15deg);
+}
+
+.flower-vestimenta-bl {
+    width: 150px;
+    height: auto;
+    position: absolute;
+    bottom: -40px;
+    left: -40px;
+    z-index: 2;
+}
+
+.flower-vestimenta-br {
+    width: 150px;
+    height: auto;
+    position: absolute;
+    bottom: -15px;
+    right: -30px;
+    z-index: 2;
+    rotate: 50deg;
+}
+
+/* Gifts Section */
+#regalos {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 43%;
+    border-radius: 5%;
+    background-color: var(--bg-color);
+    margin: auto;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    z-index: 1;
+    padding: 40px;
+    margin-bottom: 3rem;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Gifts Flowers (Independent Logic) */
+.flower-regalos-tl {
+    width: 150px;
+    height: auto;
+    position: absolute;
+    top: -30px;
+    left: -30px;
+    z-index: 2;
+    transform: rotate(-15deg);
+}
+
+.flower-regalos-bl {
+    width: 150px;
+    height: auto;
+    position: absolute;
+    bottom: -40px;
+    left: -40px;
+    z-index: 2;
+}
+
+.flower-regalos-br {
+    width: 150px;
+    height: auto;
+    position: absolute;
+    bottom: -15px;
+    right: -30px;
+    z-index: 2;
+    rotate: 50deg;
+}
+
+/* Gift Registry Buttons */
+.gift-registry-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.registry-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 25px;
+    border-radius: 50px;
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-width: 160px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.registry-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+.registry-btn i {
+    font-size: 1.2rem;
+}
+
+/* Specific Brand Colors */
+.amazon-btn {
+    background-color: #232F3E; /* Amazon Dark Blue */
+    color: white;
+    border: 2px solid transparent;
+}
+.amazon-btn:hover {
+    border-color: #FF9900; /* Amazon Yellow/Orange border on hover */
+}
+
+.liverpool-btn {
+    background-color: #E10098; /* Liverpool Pink */
+    color: white;
+}
+
+.paypal-btn {
+    background-color: #003087; /* PayPal Blue */
+    color: white;
+}
+
+/* Wishes Section Carousel (Social Style) */
+#deseos {
+    position: relative;
+    padding: 80px 20px;
+    background-color: var(--secondary);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.wishes-swiper {
+    width: 100%;
+    max-width: 1000px;
+    padding: 20px;
+    margin-top: 20px;
+    overflow: visible; /* To allow shadows not to be clipped */
+}
+
+/* Social Card Styling (Facebook-like) */
+.social-card {
+    background: var(--secondary);
+    border-radius: 15px; /* iOS/modern rounded corners */
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3); /* Softer shadow */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 220px; /* Consistent height */
+    transition: transform 0.3s ease;
+    border: 1px solid #f0f2f5; /* Subtle border */
+    user-select: none;
+}
+
+.social-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.social-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.social-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    margin-right: 12px;
+}
+
+.social-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.social-name {
+    font-family: var(--font-body); /* More standard font for UI */
+    font-weight: 700;
+    color: #050505; /* Facebook-like black */
+    font-size: 1rem;
+    margin-bottom: 2px;
+}
+
+.social-time {
+    font-size: 0.8rem;
+    color: #65676b; /* Muted text color */
+}
+
+.social-body {
+    flex-grow: 1;
+    margin-bottom: 15px;
+}
+
+.social-body p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: #050505;
+    line-height: 1.5;
+}
+
+.social-footer {
+    border-top: 1px solid #e4e6eb;
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.social-action {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #65676b;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.social-action:hover {
+    background-color: #f0f2f5;
+    color: var(--primary); /* Use theme color on hover */
+}
+
+.social-action i {
+    font-size: 1.2rem;
+}
+
+/* Specific styling for the 'Love' icon */
+.social-action i.fa-heart {
+    color: #f23e5c; /* Pinkish red heart */
+}
+
+/* Override Swiper styles if needed */
+.swiper-slide {
+    height: auto; /* Fit content */
+    align-self: stretch;
+}
+
+/* Social Replies */
+.social-reply {
+    margin-top: 15px;
+    padding: 10px 15px;
+    background: #f7f7f7;
+    border-radius: 10px;
+    border-left: 3px solid var(--primary);
+    margin-left: 10px;
+}
+
+.reply-header {
+    margin-bottom: 8px;
+}
+
+.reply-avatar {
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+}
+
+.reply-content p {
+    font-size: 0.9rem;
+    color: #444;
+    margin: 0;
+}
+
+/* Floral Decorations for Wishes */
+.flower-deseos-l {
+    width: 300px;
+    height: auto;
+    position: absolute;
+    left: -100px;
+    top: 10%;
+    opacity: 0.4;
+    z-index: 1;
+    transform: rotate(45deg);
+    pointer-events: none;
+}
+
+.flower-deseos-r {
+    width: 300px;
+    height: auto;
+    position: absolute;
+    right: -100px;
+    bottom: 5%;
+    opacity: 0.4;
+    z-index: 1;
+    transform: rotate(-45deg);
+    pointer-events: none;
+}
+
+/* Spotify Style Player */
+/* Spotify Style Player */
+.spotify-player {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--primary); /* Using Primary Theme Color */
+    padding: 10px 15px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 10px 30px rgba(146, 94, 51, 0.4);
+    z-index: 9999;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: transform 0.3s ease;
+    backdrop-filter: blur(10px);
+    width: auto;
+    max-width: 300px;
+}
+
+.spotify-player:hover {
+    transform: scale(1.02);
+}
+
+.spotify-track-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.spotify-cover {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(45deg, var(--secondary), #e6dfd6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-size: 1.2rem;
+    animation: spin 4s linear infinite;
+    animation-play-state: paused;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.spotify-player.playing .spotify-cover {
+    animation-play-state: running;
+}
+
+.spotify-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.spotify-title {
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+    font-family: var(--font-body);
+}
+
+.spotify-artist {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.7rem;
+    font-family: var(--font-body);
+}
+
+.spotify-play-btn {
+    background: white; /* Secondary/White for contrast on primary bg */
+    color: var(--primary);
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    font-size: 1rem;
+    margin-left: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.spotify-play-btn:hover {
+    transform: scale(1.1);
+    background: #f0f0f0;
+}
+
+.spotify-play-btn:active {
+    transform: scale(0.95);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Hide old button if any remains */
+.music-btn {
+    display: none;
+}
+
+/* Itinerary Section Styling */
+#itinerario {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 43%;
+    border-radius: 5%;
+    background-color: var(--bg-color);
+    margin: 3rem auto;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    z-index: 1;
+    padding: 40px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Confirmation Section Styling */
+#confirmacion {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 43%;
+    border-radius: 5%;
+    background-color: var(--bg-color);
+    margin: 3rem auto;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    z-index: 1;
+    padding: 40px;
+    align-items: center;
+    justify-content: center;
+}
