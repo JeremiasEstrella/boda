@@ -104,6 +104,8 @@
     }
 
     @media screen and (min-width: 500px) {
+
+        
         .top-flap {
             border-width: 125px 225px 0 225px;
         }
@@ -113,6 +115,7 @@
         .right-flap {
             border-width: 125px 225px 125px 0;
         }
+
     }
 
     .envelope-content h1 {
@@ -298,6 +301,7 @@
         padding: 40px 15px;
         margin: 20px 10px;
         border-radius: 20px;
+        margin: auto;
     }
     
     .qr-placeholder {
@@ -478,11 +482,12 @@
 
 @media screen and (max-width: 480px) {
     .titulocountdown {
-        font-size: 1.8rem;
+        font-size: 1.4rem;
+        bottom: 20px;
     }
 
     .countdown {
-        gap: 10px;
+        gap: 5px;
     }
 
     .countdown-item {
@@ -509,6 +514,24 @@
 
 @media screen and (max-width: 600px) {
     
+    /* GLOBAL MOBILE FIX: Prevent Horizontal Overflow & Zoom Issues */
+    html, body {
+        width: 100%;
+        max-width: 100vw;
+        overflow-x: hidden !important;
+        overflow-y: auto;
+        position: relative;
+        touch-action: pan-y; /* Prevent accidental zoom gestures */
+        -webkit-text-size-adjust: 100%; /* Prevent font scaling on orientation change */
+    }
+
+    /* Ensure wrapper doesn't force width */
+    #envelope-wrapper, #main-content {
+        width: 100%;
+        max-width: 100vw;
+        overflow-x: hidden;
+    }
+
     :root {
         --mobile-padding: 15px 5px;
     }
@@ -522,6 +545,14 @@
         font-size: 1.5rem !important;
         margin-bottom: 20px;
     }
+
+
+    
+        .wax-seal {
+    width: 170px;
+    height: 170px;
+    font-size: 3rem;
+}
 
     /* Countdown Optimized */
     .countdown {
@@ -561,7 +592,7 @@
 
     .titulocountdown {
         font-size: 1.2rem;
-        bottom: 85px;
+        bottom: 20%;
         padding: 0 10px;
     }
 
@@ -571,100 +602,104 @@
         letter-spacing: 1px;
     }
 
-    .hero-top-details {
-        transform: scale(0.85); /* Slightly larger for <600px */
-        transform-origin: top left;
-        top: 10px;
-        left: 10px;
-    }
-
-    /* Cards & Sections */
-    #mensaje, #vestimenta, #regalos, #itinerario, #confirmacion, #qr-upload {
-        width: 95%;
-        padding: 20px 10px;
-    }
-
-    .img-mensajeflores, .florizq, .florder {
-        width: 40px; /* Smaller flowers */
-    }
-
-    /* Weather Card Compact */
-    .weather-card {
-        padding: 20px 10px;
-        width: 95%;
+    /* Robust Envelope Mobile Styling */
+    .envelope {
+        width: 90vw;
+        max-width: 400px;
+        height: 240px; /* Highly compatible height */
+        min-height: 240px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
-    .weather-title { font-size: 1.5rem; letter-spacing: 2px; }
-    .weather-location { font-size: 1.1rem; }
-    .current-weather .temp { font-size: 2.5rem; }
-    .status-icon { font-size: 2rem; }
-    .weather-details { gap: 10px; font-size: 0.8rem; }
-
-    /* Parents & Family */
-    .parent-circle-frame {
-        width: 180px;
-        height: 180px;
-    }
-    
-    .parent-name { font-size: 1.4rem !important; }
-
-    .godparents-container {
-        gap: 15px;
-    }
-    
-    .godparent-circle {
-        width: 100px;
-        height: 100px;
+    /* Ensure text sits ON TOP of the flaps so it's readable/clickable */
+    .envelope-content {
+        z-index: 20; /* Above flaps (15) */
+        padding: 5px; /* Minimal padding */
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 
-    /* Itinerary */
-    .itinerary-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 1rem;
-        margin-right: 10px;
+    .envelope-content h1 {
+        font-size: 1.5rem; /* Smaller for safety */
+        margin-bottom: 2px;
+        line-height: 1.2;
     }
     
-    .itinerary-content {
-        width: calc(100% - 50px);
-        padding: 10px;
+    .envelope-content p {
+        font-size: 0.8rem;
+        margin-bottom: 5px;
+        max-width: 90%;
     }
-    
-    .itinerary-label { font-size: 1.1rem; }
-    .itinerary-time { font-size: 0.9rem; }
-    .timeline-line { left: 25px; }
 
-    /* Spotify Player Compact */
+    .open-btn {
+        padding: 8px 15px;
+        font-size: 0.8rem;
+        margin-top: 10px;
+        position: relative;
+        z-index: 25; /* Ensure clickable */
+        white-space: nowrap;
+    }
+    
+    /* ... flaps code remains similar but ensuring z-index ... */
+    
+    /* Spotify Player Compact Fixed */
     .spotify-player {
-        max-width: none;
         width: auto;
-        padding: 5px 10px;
-        bottom: 10px;
-        right: 10px;
-        border-radius: 30px;
+        max-width: calc(100vw - 40px); /* Never exit container */
+        padding: 5px 12px;
+        bottom: 15px;
+        right: 15px;
+        border-radius: 50px;
+        box-sizing: border-box;
+        overflow: hidden;
+        background: rgba(146, 94, 51, 0.95); /* Ensure readability */
+        backdrop-filter: blur(10px);
     }
     
+    .spotify-track-info {
+        gap: 5px;
+        flex: 1; /* Allow it to shrink */
+        min-width: 0; /* Crucial for flex child truncation */
+    }
+
     .spotify-cover {
         width: 25px;
         height: 25px;
+        flex-shrink: 0;
     }
     
+    .spotify-text {
+        min-width: 0; /* Enable flex shrinking */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
     .spotify-title {
         font-size: 0.7rem;
-        max-width: 90px;
+        white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        white-space: nowrap;
         display: block;
+        max-width: 100%;
     }
     
-    .spotify-artist { display: none; }
+    .spotify-artist { 
+        display: none !important; /* Force hide on small screens */ 
+    }
     
     .spotify-play-btn {
-        width: 25px;
-        height: 25px;
+        width: 28px;
+        height: 28px;
         font-size: 0.7rem;
         margin-left: 5px;
+        flex-shrink: 0;
     }
 
     /* Registry Buttons */
@@ -710,4 +745,94 @@
         height: 60px;
         margin: 0 5px;
     }
+
+    /* Spotify Player Centered Bottom */
+    .spotify-player {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%); /* Crucial for exact centering */
+        width: auto;
+        min-width: 250px; /* Minimum reasonable width */
+        max-width: 90%;   /* Never exceed screen width */
+        padding: 8px 15px;
+        border-radius: 50px;
+        box-sizing: border-box;
+        overflow: hidden;
+        background: rgba(146, 94, 51, 0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.3); /* Stronger shadow for floating effect */
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* Distribute space evenly */
+    }
+    
+    .spotify-track-info {
+        gap: 8px;
+        flex: 1;
+        min-width: 0;
+        justify-content: flex-start; /* Align text to start */
+    }
+
+    .spotify-cover {
+        width: 35px; /* Slightly larger for touch targets */
+        height: 35px;
+        flex-shrink: 0;
+    }
+    
+    .spotify-text {
+        text-align: left; /* Ensure left alignment */
+    }
+
+    .spotify-title {
+        font-size: 0.8rem; /* Readable size */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        max-width: 100%;
+    }
+    
+    .spotify-play-btn {
+        width: 35px; /* Larger hit area */
+        height: 35px;
+        font-size: 0.9rem;
+        margin-left: 10px;
+        flex-shrink: 0;
+        background: white;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        border: none;
+    }
 }   
+
+
+/* Mobile Gallery Adjustments */
+@media screen and (max-width: 768px) {
+    .modern-gallery {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .gallery-main {
+        height: 400px;
+    }
+    
+    .gallery-sidebar {
+        flex-direction: row;
+        overflow-x: auto;
+        overflow-y: hidden;
+        height: 100px;
+        padding-right: 0;
+        padding-bottom: 10px;
+    }
+    
+    .thumb-card {
+        width: 100px;
+        height: 80px;
+    }
+}

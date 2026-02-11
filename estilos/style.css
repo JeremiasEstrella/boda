@@ -171,7 +171,7 @@ html {
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 1.8rem;
+    font-size: 2rem;
     cursor: pointer;
     box-shadow: 0 5px 15px rgba(146, 94, 51, 0.4);
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -398,31 +398,7 @@ html {
     object-fit: cover;
 }
 
-/* Mobile Gallery Adjustments */
-@media screen and (max-width: 768px) {
-    .modern-gallery {
-        flex-direction: column;
-        height: auto;
-    }
-    
-    .gallery-main {
-        height: 400px;
-    }
-    
-    .gallery-sidebar {
-        flex-direction: row;
-        overflow-x: auto;
-        overflow-y: hidden;
-        height: 100px;
-        padding-right: 0;
-        padding-bottom: 10px;
-    }
-    
-    .thumb-card {
-        width: 100px;
-        height: 80px;
-    }
-}
+
 .weather-card {
     background: var(--primary);
     padding: 60px 40px;
