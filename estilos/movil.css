@@ -507,55 +507,207 @@
 
 
 
-@media screen and (max-width: 370px) {
+@media screen and (max-width: 600px) {
     
+    :root {
+        --mobile-padding: 15px 5px;
+    }
+
+    h1 { font-size: 1.8rem !important; }
+    h2 { font-size: 1.5rem !important; }
+    h3 { font-size: 1.2rem !important; }
+    p { font-size: 0.9rem !important; }
+
+    .section-title {
+        font-size: 1.5rem !important;
+        margin-bottom: 20px;
+    }
+
+    /* Countdown Optimized */
     .countdown {
         bottom: 30px;
-        width: 90%; 
-        gap: 2px;
+        width: 95%; 
+        gap: 4px;
         margin-top: 0;
         position: absolute;
         display: flex;
         justify-content: center;
-        margin: auto;
+        margin: 0 auto;
+        left: 2.5%;
         flex-direction: row;
     }
 
     .countdown-item {
-        min-width: 50px; /* Smaller width for mobile */
-        padding: 3px;
-        flex: 1; /* Allow equal growth */
+        min-width: unset;
+        width: auto;
+        flex: 1;
+        padding: 2px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .countdown-number {
-        font-size: 0.7rem; /* Smaller font for numbers to fit */
+        font-size: 0.9rem; /* Improved legibility */
+        line-height: 1;
+        margin-bottom: 2px;
     }
 
     .countdown-item span:last-child {
-        font-size: 0.5rem;
-        display: none; 
+        font-size: 0.55rem;
+        display: block; /* Show labels */
+        line-height: 1;
     }
 
     .titulocountdown {
-        font-size: 1rem;
-        bottom: 40px;
+        font-size: 1.2rem;
+        bottom: 85px;
+        padding: 0 10px;
     }
 
     .wedding-date {
-        font-size: 0.8rem;
-        bottom: 1px;
+        font-size: 0.75rem;
+        bottom: 5px;
+        letter-spacing: 1px;
     }
 
     .hero-top-details {
-        transform: scale(0.8);
+        transform: scale(0.85); /* Slightly larger for <600px */
         transform-origin: top left;
-        top: 5px;
-        left: 5px;
+        top: 10px;
+        left: 10px;
     }
 
+    /* Cards & Sections */
+    #mensaje, #vestimenta, #regalos, #itinerario, #confirmacion, #qr-upload {
+        width: 95%;
+        padding: 20px 10px;
+    }
 
+    .img-mensajeflores, .florizq, .florder {
+        width: 40px; /* Smaller flowers */
+    }
 
+    /* Weather Card Compact */
+    .weather-card {
+        padding: 20px 10px;
+        width: 95%;
+    }
+    
+    .weather-title { font-size: 1.5rem; letter-spacing: 2px; }
+    .weather-location { font-size: 1.1rem; }
+    .current-weather .temp { font-size: 2.5rem; }
+    .status-icon { font-size: 2rem; }
+    .weather-details { gap: 10px; font-size: 0.8rem; }
 
+    /* Parents & Family */
+    .parent-circle-frame {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .parent-name { font-size: 1.4rem !important; }
 
+    .godparents-container {
+        gap: 15px;
+    }
+    
+    .godparent-circle {
+        width: 100px;
+        height: 100px;
+    }
 
+    /* Itinerary */
+    .itinerary-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+        margin-right: 10px;
+    }
+    
+    .itinerary-content {
+        width: calc(100% - 50px);
+        padding: 10px;
+    }
+    
+    .itinerary-label { font-size: 1.1rem; }
+    .itinerary-time { font-size: 0.9rem; }
+    .timeline-line { left: 25px; }
+
+    /* Spotify Player Compact */
+    .spotify-player {
+        max-width: none;
+        width: auto;
+        padding: 5px 10px;
+        bottom: 10px;
+        right: 10px;
+        border-radius: 30px;
+    }
+    
+    .spotify-cover {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .spotify-title {
+        font-size: 0.7rem;
+        max-width: 90px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block;
+    }
+    
+    .spotify-artist { display: none; }
+    
+    .spotify-play-btn {
+        width: 25px;
+        height: 25px;
+        font-size: 0.7rem;
+        margin-left: 5px;
+    }
+
+    /* Registry Buttons */
+    .gift-registry-container {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .registry-btn {
+        width: 100%;
+        max-width: 250px;
+        font-size: 0.9rem;
+    }
+    
+    /* Footer/Map Button */
+    .map-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    /* Gallery Mobile Fixes */
+    .modern-gallery {
+        height: auto !important;
+        gap: 15px;
+    }
+    
+    .gallery-main {
+        height: 65vw;
+        max-height: 400px; /* Cap it for tablets/large phones */
+    }
+    
+    .gallery-sidebar {
+        flex-direction: row;
+        overflow-x: auto;
+        height: auto;
+        padding-bottom: 10px;
+        justify-content: flex-start;
+    }
+    
+    .thumb-card {
+        width: 80px;
+        height: 60px;
+        margin: 0 5px;
+    }
 }   

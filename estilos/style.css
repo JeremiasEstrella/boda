@@ -567,7 +567,7 @@ html {
     align-items: center;
     gap: 8px;
     flex-shrink: 0; /* Important: prevents items from squishing */
-    min-width: 60px;
+    min-width: 80px;
 }
 
 .forecast-item .time {
