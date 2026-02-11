@@ -509,10 +509,44 @@ musicBtn.addEventListener('click', () => {
 
 // 8. Weather Simulation
 function initWeather() {
-    // Forecast scroll logic
     const container = document.getElementById('forecast-items');
+    
+    // Generate 30-day forecast starting from Wedding Date
+    const startDate = new Date('2026-10-15T12:00:00');
+    const monthNames = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+    
+    container.innerHTML = ''; // Clear placeholder
+
+    for (let i = 0; i < 30; i++) {
+        const date = new Date(startDate);
+        date.setDate(startDate.getDate() + i);
+        
+        const day = date.getDate();
+        const month = monthNames[date.getMonth()];
+        const dateString = `${day} ${month}`;
+        
+        // Simulating Yucatan Weather (Warm/Hot)
+        // Base temp 28, random variance 0-4
+        const temp = 28 + Math.floor(Math.random() * 5); 
+        
+        // Mostly sunny/partly cloudy
+        const icons = ['☀️', '☀️', '⛅', '⛅', '☁️', '⛈️'];
+        // Weighted random for better realism (more sun)
+        const icon = icons[Math.floor(Math.random() * (i % 3 === 0 ? 2 : 6))]; 
+
+        const item = document.createElement('div');
+        item.className = 'forecast-item';
+        item.innerHTML = `
+            <span class="time" style="font-size: 0.8rem; white-space: nowrap;">${dateString}</span>
+            <span class="icon">${icon}</span>
+            <span class="hour-temp">${temp}°C</span>
+        `;
+        container.appendChild(item);
+    }
+
+    // Forecast scroll logic
     window.scrollForecast = (direction) => {
-        const scrollAmount = 100;
+        const scrollAmount = 150; // Increased scroll amount for wider items
         container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
     };
 }
