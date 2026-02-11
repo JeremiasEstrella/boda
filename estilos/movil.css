@@ -751,6 +751,7 @@
         position: fixed;
         bottom: 20px;
         left: 50%;
+        right: auto;
         transform: translateX(-50%); /* Crucial for exact centering */
         width: auto;
         min-width: 250px; /* Minimum reasonable width */
@@ -768,6 +769,10 @@
         justify-content: space-between; /* Distribute space evenly */
     }
     
+    .spotify-player:hover {
+        transform: translateX(-50%) scale(1.02);
+    }
+
     .spotify-track-info {
         gap: 8px;
         flex: 1;
